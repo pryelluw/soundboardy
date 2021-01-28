@@ -46,7 +46,12 @@ Things we know:
 Questions:
 
 What type of sound files are we going to play? MP3? WAV? OGG?
+yes, those 3
+
 Should it allow n amount of buttons or do we want to limit it?
+No, I think it should be up to 8 buttons. 4 rows of 2.
+
+
 Can we bind keys to the board while streaming?
 
-
+I dont know yet. TBD
