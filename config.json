@@ -1,1 +1,27 @@
-[{"filename":"kids_cheering.mp3","position":1}]
+{
+	"1": {
+		"filename": "chewbacca.mp3",
+		"name": "Chewbacca"
+	},
+	"2": {
+		"filename": "sitcom-laugh.mp3",
+		"name": "Sitcom Laugh"
+	},
+	"3": {
+		"filename": "mlg-airhorn.mp3",
+		"name": "Airhorn"
+	},
+	"4": {
+		"filename": "spongebob-fail.mp3",
+		"name": "Spongebob Fail"
+	},
+	"5": {
+		"filename": "the-price-is-right-losing-horn.mp3",
+		"name": "Losing Horn"
+	},
+	"6": {
+		"filename": "kids_cheering.mp3",
+		"name": "Kids Cheering"
+	}
+}
+

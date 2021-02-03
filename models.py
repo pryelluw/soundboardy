@@ -9,13 +9,10 @@ class SoundEffect:
     Stores button config state such as position
     and filename to play
     '''
-    def __init__(self, filename, position=0):
+    def __init__(self, filename, name, position=0):
         self.filename = filename
+        self.name = name
         self.position = position
-
-    @property
-    def name(self):
-        return self.filename.split('.')[0]
 
     def play(self):
         # Playback stops when the object is destroyed (GC'ed), so save a reference to the 
@@ -24,30 +21,22 @@ class SoundEffect:
         self.player = AudioPlayer(path)
         self.player.play()
 
+
 class SoundBoard:
     '''
     Has all config info in order to run app
     '''
-    def __init__(self):
-        self.effects = []
-
     def load_config(self):
         with open('config.json', 'r') as f:
             return json.loads(f.read())
 
-
     def prepare(self):
         config = self.load_config()
-        for sound_effect in config:
-            se = SoundEffect(
-                sound_effect.get('filename'),
-                sound_effect.get('position')
-            )
-            print(se.__dict__)
-            self.effects.append(se)
+        self.se1 = SoundEffect(config.get('1').get('filename'), config.get('1').get('name'), 1)
+        self.se2 = SoundEffect(config.get('2').get('filename'), config.get('2').get('name'), 2)
+        self.se3 = SoundEffect(config.get('3').get('filename'), config.get('3').get('name'), 3)
+        self.se4 = SoundEffect(config.get('4').get('filename'), config.get('4').get('name'), 4)
+        self.se5 = SoundEffect(config.get('5').get('filename'), config.get('5').get('name'), 5)
+        self.se6 = SoundEffect(config.get('6').get('filename'), config.get('6').get('name'), 6)
         
-        print(self.effects)
-        
-        if not self.effects:
-            raise ValueError('Could not load effects!')
         
