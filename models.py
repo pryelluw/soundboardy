@@ -38,5 +38,52 @@ class SoundBoard:
         self.se4 = SoundEffect(config.get('4').get('filename'), config.get('4').get('name'), 4)
         self.se5 = SoundEffect(config.get('5').get('filename'), config.get('5').get('name'), 5)
         self.se6 = SoundEffect(config.get('6').get('filename'), config.get('6').get('name'), 6)
-        
-        
+
+
+class Config:
+    def __init__(self, settings):
+        self.base_settings = {
+        	"1": {
+        		"filename": "",
+        		"name": ""
+        	},
+        	"2": {
+        		"filename": "",
+        		"name": ""
+        	},
+        	"3": {
+        		"filename": "",
+        		"name": ""
+        	},
+        	"4": {
+        		"filename": "",
+        		"name": ""
+        	},
+        	"5": {
+        		"filename": "",
+        		"name": ""
+        	},
+        	"6": {
+        		"filename": "",
+        		"name": ""
+        	}
+        } if not settings else settings
+
+    @property
+    def settings(self):
+        return self.base_settings
+
+    def update(filename, name, index=1):
+        '''index = int 1-6'''
+        if index not in [1,2,3,5,6]:
+            return
+        if not filename:
+            return
+        if not name:
+            return
+         
+        self.base_settings[index]['filename'] = filename
+        self.base_settings(index)['name'] = name
+
+    def to_json(self):
+        return json.dumps(self.settings)

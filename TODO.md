@@ -1,0 +1,12 @@
+- Config window
+	- Allow only mp3s
+	- pass Path object with filepath
+	- pass default filename if label not provided
+		- this requires including a default mp3 file
+			- find a test.mp3 with a license that allows distribution
+	- Allow only a given length for name label
+	- Pass default name label if none provided
+	- Set default for color if user passes color not in colors tuple
+	- Take values from config window and save them to file
+	- Load values from file and show them in config window
+
