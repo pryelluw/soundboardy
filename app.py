@@ -10,46 +10,30 @@ menu_def = [
     ['Config', ['Setup']]
 ]
 
-# button colors
-colors = (
-    'red',
-    'blue',
-    'yellow',
-    'green',
-    'black',
-    'grey'
-)
-
 settings_layout =  [
     [sg.Text('Sound Effect #1')],
-    [sg.Text('MP3 File', size=(8, 1)), sg.Input(key='file1'), sg.FileBrowse()],
-    [sg.Text('Label', size=(8, 1)), sg.Input(key='label1') ],
-    [sg.Text('Color'), sg.Combo(values=colors, default_value=colors[0], size=(10, 10), text_color='black', key='color1')],
+    [sg.Text('MP3 File', size=(8, 1)), sg.Input(key='file1', default_text=soundboard.config.settings_by_index('1')[0]), sg.FileBrowse(file_types=(('MP3', '*.mp3'),))], # Note - file_types IS NOT SUPPORTED ON MAC
+    [sg.Text('Label', size=(8, 1)), sg.Input(key='label1', default_text=soundboard.config.settings_by_index('1')[1]) ],
     [sg.Text('_' * 100)],
     [sg.Text('Sound Effect #2')],
     [sg.Text('MP3 Sound File', size=(8, 1)), sg.Input(key='file2'), sg.FileBrowse()],
     [sg.Text('Label', size=(8, 1)), sg.Input(key='label2')],
-    [sg.Text('Color'), sg.Combo(values=colors, default_value=colors[0], size=(10, 10), text_color='black', key='color2')],
     [sg.Text('_' * 100)],
     [sg.Text('Sound Effect #3')],
     [sg.Text('MP3 Sound File', size=(8, 1)), sg.Input(key='file3'), sg.FileBrowse()],
     [sg.Text('Label', size=(8, 1)), sg.Input(key='label3')],
-    [sg.Text('Color'), sg.Combo(values=colors, default_value=colors[0], size=(10, 10), text_color='black', key='color3')],
     [sg.Text('_' * 100)],
     [sg.Text('Sound Effect #4')],
     [sg.Text('MP3 Sound File', size=(8, 1)), sg.Input(key='file4'), sg.FileBrowse()],
     [sg.Text('Label', size=(8, 1)), sg.Input(key='label4')],
-    [sg.Text('Color'), sg.Combo(values=colors, default_value=colors[0], size=(10, 10), text_color='black', key='color4')],
     [sg.Text('_' * 100)],
     [sg.Text('Sound Effect #5')],
     [sg.Text('MP3 Sound File', size=(8, 1)), sg.Input(key='file5'), sg.FileBrowse()],
     [sg.Text('Label', size=(8, 1)), sg.Input(key='label5')],
-    [sg.Text('Color'), sg.Combo(values=colors, default_value=colors[0], size=(10, 10), text_color='black', key='color5')],
     [sg.Text('_' * 100)],
     [sg.Text('Sound Effect #6')],
     [sg.Text('MP3 Sound File', size=(8, 1)), sg.Input(key='file6'), sg.FileBrowse()],
     [sg.Text('Label', size=(8, 1)), sg.Input(key='label6')],
-    [sg.Text('Color'), sg.Combo(values=colors, default_value=colors[0], size=(10, 10), text_color='black', key='color6')],
     [sg.Text('_' * 100)],
     [sg.Submit(), sg.Cancel()]
 ]
@@ -64,8 +48,9 @@ app_layout = [
     [sg.Button('', size=(4,2), key='6', button_color=('grey','grey')), sg.Text(soundboard.se6.name, font=('Default', 14))],
 ]
 
-# settings window
-settings_window = sg.Window('Settings', settings_layout)
+# settings config window
+settings_window = sg.Window('Settings', settings_layout, finalize=True)
+settings_window.hide()
 
 # main app window
 app_window = sg.Window('SOUNDBOARDY', app_layout, size=(300,300))
@@ -77,12 +62,19 @@ while True:
         break
     
     # open config
-    if event == 'Setup':
+    if event == 'Setup':        
+        settings_window.un_hide()
         settings_event, settings_values = settings_window.read()
-        print(settings_event, settings_values)
+        
+        # read and and save to config
         
         
+        if settings_event == sg.WIN_CLOSED or settings_event == 'Cancel':
+            settings_window.hide()
         
+        elif settings_event == 'Submit':
+            settings_window.hide()
+
     if event == '1':
         soundboard.se1.play()
     elif event == '2':
