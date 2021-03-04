@@ -1,5 +1,7 @@
 # local dev settings
 files/
+config.json
+.DS_Store
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

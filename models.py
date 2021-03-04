@@ -1,10 +1,11 @@
 import json
+from pathlib import Path, PurePath
 from audioplayer import AudioPlayer
 
 
 class SoundEffect:
     '''
-    Represents a button in the GUI
+    Maps to a button in the GUI
     When clicked it plays the sound
     Stores button config state such as position
     and filename to play
@@ -16,8 +17,7 @@ class SoundEffect:
     def play(self):
         # Playback stops when the object is destroyed (GC'ed), so save a reference to the 
         # object for non-blocking playback.
-        path = f'files/{self.filename}'
-        self.player = AudioPlayer(path)
+        self.player = AudioPlayer(self.filename)
         self.player.play()
 
 
@@ -58,10 +58,12 @@ class SoundBoard:
 
 
 class Config:
+       
     def __init__(self, settings=None):
+        self.path = PurePath.joinpath(Path.cwd(), 'config.json')
         self.default_name = 'default'
-        self.default_filename = 'test.mp3'
-        self.base_settings = {
+        self.default_filename = PurePath.joinpath(Path.cwd(), 'files', 'test.mp3')
+        self.settings = {
         	"1": {
         		"filename": "",
         		"name": ""
@@ -88,9 +90,7 @@ class Config:
         	}
         } if not settings else settings
 
-    @property
-    def settings(self):
-        return self.base_settings
+
     
     def truncate_name(self, name):
         # only names 20 chars long
@@ -115,16 +115,20 @@ class Config:
         elif not name:
             name = self.default_name
 
-        self.base_settings[index]['filename'] = filename
-        self.base_settings[index]['name'] = self.truncate_name(name)
+        self.settings[index]['filename'] = filename
+        self.settings[index]['name'] = self.truncate_name(name)
 
     def to_json(self):
         return json.dumps(self.settings)
 
     def load(self):
-        with open('config.json', 'r') as f:
-            self.base_settings = json.loads(f.read())
+        # needed an OS agnostic way of checking if config file exists 
+        if not Path(self.path).exists():
+            self.save()
+
+        with open(self.path, 'r') as f:
+            self.settings = json.loads(f.read())
 
     def save(self):
-        with open('config.json', 'w') as f:
+        with open(self.path, 'w') as f:
             f.write(self.to_json())
