@@ -60,11 +60,12 @@ settings_window = sg.Window('Settings', settings_layout, finalize=True, disable_
 settings_window.hide()
 
 # main app window
-app_window = sg.Window('Soundboardy', app_layout, size=(350,310))
+app_window = sg.Window('Soundboardy', app_layout, size=(350,310), return_keyboard_events=True)
 
 # Event Loop to process "events" and get the "values" of the inputs
 while True:
     event, values = app_window.read()
+    print(event, type(event))
     if event == sg.WIN_CLOSED or event == 'Cancel':	# if user closes window or clicks cancel
         break
 
@@ -116,18 +117,21 @@ while True:
             settings_window.hide()
 
     # play sounds according to button clicked
-    # note that sounds do not block eahc other
-    if event == 'button1':
+    # note that sounds do not block each other
+    # binds keyboard numerical keys to buttons
+    # numerical key 1 is bind to button1
+    # and so on
+    if event == 'button1' or event == '1':
         soundboard.se1.play()
-    elif event == 'button2':
+    elif event == 'button2' or event == '2':
         soundboard.se2.play()
-    elif event == 'button3':
+    elif event == 'button3' or event == '3':
         soundboard.se3.play()
-    elif event == 'button4':
+    elif event == 'button4' or event == '4':
         soundboard.se4.play()
-    elif event == 'button5':
+    elif event == 'button5' or event == '5':
         soundboard.se5.play()
-    elif event == 'button6':
+    elif event == 'button6' or event == '6':
         soundboard.se6.play()
 
 settings_window.close()
