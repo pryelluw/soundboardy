@@ -59,36 +59,36 @@ class SoundBoard:
 
 class Config:
        
-    def __init__(self, settings=None):
-        self.path = PurePath.joinpath(Path.cwd(), 'config.json')
+    def __init__(self):
+        self.path = str(PurePath.joinpath(Path.cwd(), 'config.json'))
         self.default_name = 'default'
-        self.default_filename = PurePath.joinpath(Path.cwd(), 'files', 'test.mp3')
+        self.default_filename = str(PurePath.joinpath(Path.cwd(), 'files', 'test.mp3'))
         self.settings = {
         	"1": {
-        		"filename": "",
-        		"name": ""
+        		"filename": self.default_filename,
+        		"name": self.default_name
         	},
         	"2": {
-        		"filename": "",
-        		"name": ""
+        		"filename": self.default_filename,
+        		"name": self.default_name
         	},
         	"3": {
-        		"filename": "",
-        		"name": ""
+        		"filename": self.default_filename,
+        		"name": self.default_name
         	},
         	"4": {
-        		"filename": "",
-        		"name": ""
+        		"filename": self.default_filename,
+        		"name": self.default_name
         	},
         	"5": {
-        		"filename": "",
-        		"name": ""
+        		"filename": self.default_filename,
+        		"name": self.default_name
         	},
         	"6": {
-        		"filename": "",
-        		"name": ""
+        		"filename": self.default_filename,
+        		"name": self.default_name
         	}
-        } if not settings else settings
+        }
 
 
     
