@@ -1,7 +1,11 @@
 # local dev settings
-files/
+*.mp3
 config.json
 .DS_Store
+
+# do not ignore test.mp3
+!files/test.mp3
+
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
