@@ -65,7 +65,6 @@ app_window = sg.Window('Soundboardy', app_layout, size=(350,310), return_keyboar
 # Event Loop to process "events" and get the "values" of the inputs
 while True:
     event, values = app_window.read()
-    print(event, type(event))
     if event == sg.WIN_CLOSED or event == 'Cancel':	# if user closes window or clicks cancel
         break
 
